@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Downloaded Content</title>
+    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/satoshi" />
+    <style>
+      @import url("https://fonts.cdnfonts.com/css/satoshi");
+
+      /* Apply Satoshi Font to Everything */
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      * {
+        font-family: "Satoshi", sans-serif;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      button {
+        border: none;
+        outline: none;
+        background: transparent;
+        cursor: pointer;
+      }
+
+      /* Include dynamically generated styles */
+      #content {
+        background-color: rgb(255, 255, 255);
+        background-image: url();
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: top;
+        background-attachment: local;
+        background-size: 100%;
+        min-height: 100vh;
+      }
+    </style>
+  </head>
+
+  <script>
+    window.globalConfig = window.globalConfig || {};
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    let lang = urlParams.get("lang");
+    window.globalConfig.defaultLanguage = lang || "en";
+    window.globalConfig.mode = "production";
+    window.globalConfig.runtimeBaseUrl = "http://192.168.88.201:5000";
+    window.globalConfig.token =
+      urlParams.get("token") ||
+      "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJQbGF5ZXJJZCI6IjEiLCJVc2VyTmFtZSI6ImFjaGFuZ2VsaWEiLCJTZWdtZW50SWRzIjoiZGVmYXVsdCIsImV4cCI6MjM0MDY1Mjk0MywiaXNzIjoiSFVCIiwiYXVkIjoiSFVCLUFVRElFTkNFIn0.usZBHjkuF74VbvCBoiVza0yFll0uSntmvC8_UKNd2kE7Ez5MmZlJoJHsCkjdF2rHD0kh8F1iyiFIIjVi1zsx-Q";
+    window.globalConfig.promotionId = 175;
+    window.globalConfig.translate = (text, language) => {
+      const parsed = tryParseJson(text);
+      if (parsed.parsedSuccessfully) {
+        return (
+          parsed.parsedObject[language] ||
+          parsed.parsedObject[window.globalConfig.defaultLanguage] ||
+          "<strong>content not found</strong>"
+        );
+      } else {
+        return text;
+      }
+    };
+    window.fetchEndpoint = async (endpointInfo, params) => {
+      let url = window.globalConfig.runtimeBaseUrl + endpointInfo.endpoint;
+      if (params?.routeParams && Object.entries(params.routeParams).length) {
+        url = replaceRouteParams(url, params.routeParams);
+      }
+      if (!params) {
+        params = {};
+        params.query = {};
+      }
+      params.query.promotionId = window.globalConfig.promotionId;
+      if (params?.query && Object.entries(params.query).length) {
+        url += "?";
+        Object.entries(params.query).forEach(([key, value], index) => {
+          url += (index > 0 ? "&" : "") + key + "=" + value;
+        });
+      }
+      try {
+        const response = await fetch(url, {
+          headers: { Authorization: "Bearer " + window.globalConfig.token },
+          body: params?.body ? JSON.stringify(params.body) : undefined,
+        });
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        throw new Error("Failed to fetch leaderboard data");
+      }
+    };
+    function tryParseJson(text) {
+      console.log("text", text);
+      text = text.replace(/([{,]s*)([a-zA-Z0-9_]+)s*:/g, '$1"$2":');
+      text = text.replace(/'/g, '"');
+      text = text.replace(/([{,]s*)([a-zA-Z0-9_]+)s*:/g, '$1"$2":');
+      try {
+        return { parsedObject: JSON.parse(text), parsedSuccessfully: true };
+      } catch (e) {
+        return { parsedObject: text, parsedSuccessfully: false };
+      }
+    }
+  </script>
+  <body>
+    <div id="content">
+      <div class="element-container active" id="element-container-id9835">
+        <div id="html-content-id9835" style="opacity: 1">
+          <div class="id9835main-container">
+            <div class="id9835iframe-container">
+              <iframe
+                id="id9835iframe"
+                index="http://192.168.88.201:8004/?promotionid=175"
+                class="id9835game-frame"
+                src="http://192.168.88.201:8004/?promotionid=175&amp;token="
+                title="Prize Collection Game"
+                allowfullscreen=""
+              ></iframe>
+            </div>
+          </div>
+        </div>
+        <style id="css-content-id9835">
+          #element-container-id9835 * {
+            transition: all 0.3s ease;
+          }
+          .id9835main-container {
+            position: relative;
+            flex-shrink: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            padding: 10px;
+            border-style: solid;
+            margin: auto;
+            background-color: rgba(19, 102, 56, calc(100 / 100));
+            border-width: 0px;
+            border-color: rgba(0, 0, 30, calc(100 / 100));
+            max-width: 100vw;
+            height: 100vh;
+            background-image: url(https://s3-alpha-sig.figma.com/img/b82f/43f7/ceb266a6fc0247fb377180e856a4d07c?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=n8hZHoahsNCTPTqkaLPEIQJJZbUQbcvO3KTGPW7TFQatC3gzzlvAkcVxmgXVWrttYDARuHyYSMcW6YRqX9qwN3R4b1IvQxScJYsh2wyL32grF6iCLhx1A5Mnrll78VEzPIvyCoAbVOVtWIr5RKrwGg4mooO25J7GtcHGFehT4zgxjZIVP1HuyyaDkgNp~fQdOv2gJzcvrdAl1s9w-2XbWNRcFSkZMDjLlka~dW-j4x5vDESxOxcOcpbXxQxhAbjVsjdPghhTm2Xbrl4qq5XxQ6u3sIPir1GQLv4P4SZIXB3z~4dBz-0pgyyGPA8LEg2At9PEgjoQrtD6F6knHTVcwQ__);
+            background-size: cover;
+          }
+          .id9835main-container:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: -1;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            opacity: calc(100 / 100);
+          }
+
+          .id9835iframe-container {
+            width: 780px;
+            height: 1366px;
+            flex-shrink: 0;
+            border-radius: 20px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-size: cover;
+          }
+          .id9835iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+          }
+        </style>
+        <script id="js-content-id9835" type="module">
+          function id9835setupIframe() {
+            const iframeElement = document.getElementById("id9835iframe");
+
+            const initialUrl = iframeElement.getAttribute("index");
+            if (initialUrl) {
+              iframeElement.src = initialUrl;
+            }
+
+            if (iframeElement.src.includes("token")) {
+              iframeElement.src = iframeElement.src + window.globalConfig.token;
+            } else {
+              iframeElement.src =
+                iframeElement.src + "&token=" + window.globalConfig.token;
+            }
+          }
+
+          window.addEventListener("settingsChanged", (event) => {
+            if (event.detail && event.detail.games) {
+              const iframeElement = document.getElementById("id9835iframe");
+              iframeElement.src = event.detail.games.url;
+
+              if (iframeElement.src.includes("token")) {
+                iframeElement.src =
+                  iframeElement.src + window.globalConfig.token;
+              } else {
+                iframeElement.src =
+                  iframeElement.src + "&token=" + window.globalConfig.token;
+              }
+            }
+          });
+
+          id9835setupIframe();
+        </script>
+      </div>
+      <div></div>
+      <div></div>
+    </div>
+  </body>
+</html>
